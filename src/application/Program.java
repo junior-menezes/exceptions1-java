@@ -40,13 +40,16 @@ public class Program {
 		}
 		catch (ParseException e) {
 			System.out.println("Formato de data inválida");
+			main(args);
 		}
 		catch (DomainException e) {
 			System.out.println ("Erro na reservar: " + e.getMessage());
+			main(args);
 		}
 		catch (RuntimeException e) { //feito upcasting para RuntimeException
 			System.out.println("Erro inesperado");
 			//main(args); Testar posteriormente por chamar a propria classe main para o programa reiniciar caso ocorra algum erro.
+			main(args);
 		}
 		
 		sc.close();
