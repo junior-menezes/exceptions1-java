@@ -44,7 +44,10 @@ public class Program {
 		catch (DomainException e) {
 			System.out.println ("Erro na reservar: " + e.getMessage());
 		}
-		
+		catch (RuntimeException e) { //feito upcasting para RuntimeException
+			System.out.println("Erro inesperado");
+			//main(args); Testar posteriormente por chamar a propria classe main para o programa reiniciar caso ocorra algum erro.
+		}
 		
 		sc.close();
 	}

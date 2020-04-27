@@ -17,7 +17,7 @@ public class Reservation {
 		
 	}
 	
-	public Reservation(Integer numeroQuarto, Date checkIn, Date checkOut) throws DomainException {
+	public Reservation(Integer numeroQuarto, Date checkIn, Date checkOut) {
 		if(!checkOut.after(checkIn)) {
 			//Exception personalizada abaixo
 			throw new DomainException("A data do Check-out tem que ser posterior a data do Check-in ");
@@ -48,7 +48,7 @@ public class Reservation {
 		return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
 	}
 	
-	public void atualizacaoDatas(Date checkIn, Date checkOut) throws DomainException {
+	public void atualizacaoDatas(Date checkIn, Date checkOut) {
 		
 		Date now = new Date();
 		if(checkIn.before(now) || checkOut.before(now)) {
