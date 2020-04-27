@@ -6,14 +6,16 @@ import java.util.Date;
 import java.util.Scanner;
 
 import model.entities.Reservation;
+import model.exceptions.DomainException;
 
 public class Program {
 
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
+		try {
 		System.out.print("Numero do quarto: ");
 		int numeroQuarto = sc.nextInt();
 		System.out.print("Data do Check-in (dd/MM/yyyy): ");
@@ -21,28 +23,26 @@ public class Program {
 		System.out.print("Data do Check-out (dd/MM/yyyy): ");
 		Date checkOut = sdf.parse(sc.next());
 		
-		if(!checkOut.after(checkIn)) {
-			System.out.println("Erro na reserva: A data do Check-out tem que ser posterior a do Check-in ");
+		
+		Reservation reserva = new Reservation(numeroQuarto, checkIn, checkOut);
+		System.out.println("Reserva: " + reserva);
+		
+		System.out.println();
+		System.out.println("Atualização da reserva: ");
+		System.out.print("Data do Check-in (dd/MM/yyyy): ");
+		checkIn = sdf.parse(sc.next());
+		System.out.print("Data do Check-out (dd/MM/yyyy): ");
+		checkOut = sdf.parse(sc.next());
+		
+		reserva.atualizacaoDatas(checkIn, checkOut);
+		
+		System.out.println("Reserva: " + reserva);
 		}
-		else {
-			Reservation reserva = new Reservation(numeroQuarto, checkIn, checkOut);
-			System.out.println("Reserva: " + reserva);
-			
-			System.out.println();
-			System.out.println("Atualização da reserva: ");
-			System.out.print("Data do Check-in (dd/MM/yyyy): ");
-			checkIn = sdf.parse(sc.next());
-			System.out.print("Data do Check-out (dd/MM/yyyy): ");
-			checkOut = sdf.parse(sc.next());
-			
-			String erro = reserva.atualizacaoDatas(checkIn, checkOut);
-			
-			if(erro != null) {
-				System.out.println("Erro na reserva: " + erro);
-			}
-			else {
-				System.out.println("Reserva: " + reserva);
-			}
+		catch (ParseException e) {
+			System.out.println("Formato de data inválida");
+		}
+		catch (DomainException e) {
+			System.out.println ("Erro na reservar: " + e.getMessage());
 		}
 		
 		
